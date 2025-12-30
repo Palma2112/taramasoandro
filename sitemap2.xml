@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
   <url>
     <loc>https://taramasoandro.onrender.com/</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2025-12-30T14:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.00</priority>
   </url>
 
   <url>
     <loc>https://taramasoandro.onrender.com/bebe.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2025-12-30T14:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://taramasoandro.onrender.com/sport.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2025-12-30T14:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://taramasoandro.onrender.com/gouter.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2025-12-30T14:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
 
-  <url><loc>https://taramasoandro.onrender.com/recette-bebe/banane.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
-  <url><loc>https://taramasoandro.onrender.com/recette-bebe/mais.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
-  <url><loc>https://taramasoandro.onrender.com/recette-bebe/sorgho.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
-  <url><loc>https://taramasoandro.onrender.com/recette-bebe/manioc.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-bebe/banane.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-bebe/mais.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-bebe/sorgho.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-bebe/taro.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-bebe/manioc.html</loc><priority>0.60</priority></url>
 
-  <url><loc>https://taramasoandro.onrender.com/recette-sport/banane.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
-  <url><loc>https://taramasoandro.onrender.com/recette-sport/mais.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
-  <url><loc>https://taramasoandro.onrender.com/recette-sport/riz.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-sport/banane.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-sport/mais.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-sport/riz.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-sport/manioc.html</loc><priority>0.60</priority></url>
 
-  <url><loc>https://taramasoandro.onrender.com/recette-gouter/banane.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
-  <url><loc>https://taramasoandro.onrender.com/recette-gouter/manioc.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
-  <url><loc>https://taramasoandro.onrender.com/recette-gouter/taro.html</loc><changefreq>monthly</changefreq><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-gouter/banane.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-gouter/mais.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-gouter/taro.html</loc><priority>0.60</priority></url>
+  <url><loc>https://taramasoandro.onrender.com/recette-gouter/riz.html</loc><priority>0.60</priority></url>
 
 </urlset>
