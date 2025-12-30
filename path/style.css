@@ -1,0 +1,392 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    font-family: 'Josefin Sans', sans-serif;
+    
+}
+ .image-container {
+        background-image: 
+        linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%), 
+        url('img/hero-farine.png'); 
+        background-size: contain; 
+        background-repeat: no-repeat;
+        background-position: center;
+        height: auto;
+        flex-direction: column;
+        padding-top: 60px;
+
+    }
+body{
+    overflow-x: hidden;
+}
+footer {
+  background-color: #023e8a;
+  color: white;
+}
+footer .icons {
+  transition: transform 0.3s ease;
+}
+footer .icons:hover {
+  transform: scale(1.2);
+}
+
+
+
+   @media(min-width:502px){
+    .image-container {
+        background-image: 
+        linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%), 
+        url('img/hero-farine.png'); 
+        background-size: cover; 
+        background-repeat: no-repeat;
+        background-position: center;
+        flex-direction: column;
+        width: 100%;
+    }
+    .logoTaramasoandro{
+        height: 100px;
+    }
+    
+    
+    .image-container>h1{
+        color: aliceblue;
+        font-weight: bolder;
+        font-size: 40px;
+        margin-top: 35px;
+    }
+    .image-container>p{
+        color: rgb(227, 255, 233);
+        font-weight: bolder;  
+        font-size: 30px;
+    }
+    .img-wrapper-card{
+        height: 200px;
+        background-color: #ffff;
+        
+
+    }
+    .img-wrapper-card2{
+        height: 200px;
+        background-color: #ffff;
+        
+
+    }
+    .img-wrapper-card3{
+        height: 200px;
+        background-color: #ffff;
+        
+
+    }
+    .two>h2{
+        font-weight: bolder;
+
+    }
+    .two>p{
+        color: rgb(111, 93, 93);
+    }
+    .img-wrapper-card{
+        background-image: url(img/bébé.jpg);
+        background-size: cover ;
+        background-position: center;
+        position: relative;
+        background-repeat: no-repeat;
+        width: 400px;
+        background-color: #ffff;
+        border-radius: 10px;
+          transition: background-size 0.3s ease;
+
+    }
+    
+    
+    
+    .img-wrapper-card2{
+        background-image: url(img/sportifs.jpg);
+        width: 400px;
+        background-size: cover ;
+        background-position: center;
+        border-radius: 10px;
+        position: relative;
+        background-repeat: no-repeat;
+          transition: background-size 0.3s ease;
+
+    }
+    
+    .img-wrapper-card3{
+        background-image: url(img/gouters.jpg);
+        width: 400px;
+        background-size: cover ;
+        background-position: center;
+        position: relative;
+        background-repeat: no-repeat;
+        border-radius: 10px;
+          transition: background-size 0.3s ease;
+
+    }
+    .card-type{
+        border-radius: 10px;
+        height: 240px;
+        overflow: hidden;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 300px;
+
+    }
+    .img-wrapper-card>p{
+        position: absolute;
+        bottom: 0;
+        color: rgb(241, 241, 241);
+    }
+    .img-wrapper-card>h4{
+        position: absolute;
+        bottom: 30px;
+        color: #fff;
+        font-weight: bolder;
+    }
+    .img-wrapper-card2>p{
+        position: absolute;
+        bottom: 0;
+        color: rgb(241, 241, 241);
+    }
+    .img-wrapper-card2>h4{
+        position: absolute;
+        bottom: 30px;
+        color: #fff;
+        font-weight: bolder;
+    }
+    .img-wrapper-card3>p{
+        position: absolute;
+        bottom: 0;
+        color: rgb(241, 241, 241);
+    }
+    .img-wrapper-card3>h4{
+        position: absolute;
+        bottom: 30px;
+        color: #fff;
+        font-weight: bolder;
+    }
+    .button{
+        width: 250px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background-color: orange;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.2s;
+
+    }
+    .btn-wrapper>a{
+        text-decoration: none;
+        color: #fff;
+        font-weight: bolder;
+    }
+    .button:hover{
+        background-color: rgb(223, 146, 4);
+    }
+   .card-type{
+    background-color: #fff;
+    max-width: max-content;
+   }
+    .logoTaramasoandro{
+    height: 100px;
+    width: auto;
+    padding: 10px;
+        
+    }
+}
+    @media (max-width:500px){
+        *{
+        scrollbar-width: thin;
+        }
+        .image-container {
+        background-image: 
+        linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%), 
+        url('img/hero-farine.jpg'); 
+        background-size: cover; 
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 80vh;
+        flex-direction: column;
+        
+    }
+    
+    .image-container>h1{
+        color: aliceblue;
+        font-weight: bolder;
+        padding-top: 70px;
+    }
+    .image-container>p{
+        color: rgb(227, 255, 233);
+        font-weight: bolder;  
+    }
+    .img-wrapper-card{
+        height: 200px;
+        
+
+    }
+    .img-wrapper-card2{
+        height: 200px;
+        
+
+    }
+    .img-wrapper-card3{
+        height: 200px;
+        
+
+    }
+    .two>h2{
+        font-weight: bolder;
+
+    }
+    .two>p{
+        color: rgb(111, 93, 93);
+
+
+    }
+    .three{
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .img-wrapper-card{
+        background-image: url(img/bébé.jpg);
+        width: 300px;
+        background-size: cover ;
+        background-position: center;
+        position: relative;
+        background-repeat: no-repeat;
+          transition: background-size 0.3s ease;
+          border-radius: 10px;
+
+    }
+    
+    
+    
+    .img-wrapper-card2{
+        background-image: url(img/sportifs.jpg);
+        width: 300px;
+        background-size: cover ;
+        background-position: center;
+        position: relative;
+        background-repeat: no-repeat;
+          transition: background-size 0.3s ease;
+          border-radius: 10px;
+
+    }
+    
+    .img-wrapper-card3{
+        background-image: url(img/gouters.jpg);
+        width: 300px;
+        background-size: cover ;
+        background-position: center;
+        position: relative;
+        background-repeat: no-repeat;
+          transition: background-size 0.3s ease;
+          border-radius: 10px;
+
+    }
+    
+    .card-type{
+        border-radius: 10px;
+        height: 240px;
+        overflow: hidden;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: auto;
+
+    }
+    .img-wrapper-card>p{
+        position: absolute;
+        bottom: 0;
+        color: rgb(241, 241, 241);
+    }
+    .img-wrapper-card>h4{
+        position: absolute;
+        bottom: 30px;
+        color: #fff;
+        font-weight: bolder;
+    }
+    .img-wrapper-card2>p{
+        position: absolute;
+        bottom: 0;
+        color: rgb(241, 241, 241);
+    }
+    .img-wrapper-card2>h4{
+        position: absolute;
+        bottom: 30px;
+        color: #fff;
+        font-weight: bolder;
+    }
+    .img-wrapper-card3>p{
+        position: absolute;
+        bottom: 0;
+        color: rgb(241, 241, 241);
+    }
+    .img-wrapper-card3>h4{
+        position: absolute;
+        bottom: 30px;
+        color: #fff;
+        font-weight: bolder;
+    }
+    .button{
+        width: 250px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background-color: orange;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.2s;
+
+    }
+    .btn-wrapper>a{
+        text-decoration: none;
+        color: #fff;
+        font-weight: bolder;
+    }
+    .button:hover{
+        background-color: rgb(223, 146, 4);
+    }
+    .three{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(to top, #d3d3d353, #ffff);
+        justify-content: center;
+
+    }
+    .logoTaramasoandro{
+    height: 70px;
+    width: auto;
+    padding: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

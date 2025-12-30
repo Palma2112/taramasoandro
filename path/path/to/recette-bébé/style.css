@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
+header{
+    margin-top: 50px;
+    height: 70px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.retour{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    gap: 0.3em;
+}
+main>h1{
+    font-weight: bolder;
+}
+main>p{
+    color: rgb(137, 130, 130);
+}
+.receipe-titre{
+    color: rgb(170, 150, 150);
+    font-size: 16px;
+}
+
+.retour>a{
+    text-decoration: none;
+    color: black;
+    font-family: 'Arial', Courier, monospace;
+}

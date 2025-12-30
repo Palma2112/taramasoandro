@@ -1,0 +1,187 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Josefin Sans', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.smthng>p{
+  color: grey;
+}
+.badge{
+  background-color: #4cc488;
+  color: rgb(255, 255, 255);
+  font-weight: bolder;
+  
+}
+
+body {
+  background: linear-gradient(45deg, #ffff, #fafafa);
+  color: #333;
+}
+.comander{
+  text-decoration: none;
+  color: #856738;
+}
+
+.navbar-brand img {
+  transition: transform 0.3s ease;
+}
+.navbar-brand img:hover {
+  transform: scale(1.05);
+}
+.wrapper-img{
+  display: flex;
+  justify-content: start;
+}
+.card {
+  border: 39px solid linear-gradient(to left, #ffff, grey) ;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+.ecoresponsable{
+  width: 100%;
+  height: auto;
+  background-color: #008a4042;
+  border: 1px solid rgba(0, 117, 0, 0.422);
+  border-radius: 20px;
+}
+.card-title{
+  font-weight: bolder;
+}
+.valeur{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.smthng{
+  width: 200px;
+  height: auto;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 20px ;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+.wrapper-valeur{
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+footer {
+  background-color: #023e8a;
+  color: white;
+}
+footer .icons {
+  transition: transform 0.3s ease;
+}
+footer .icons:hover {
+  transform: scale(1.2);
+}
+.worth{
+  height: 50px;
+  width: auto;
+}
+.btn{
+  color: rgb(3, 37, 231);
+}
+
+
+/* Responsivité */
+@media (max-width: 768px) {
+  .logoTaramasoandro {
+    height: 60px;
+  }
+  footer {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width:700px){
+    .carousel{
+      padding-top: 100px;
+    }
+    .card-wrapper{
+        display: flex;
+    }
+    .card-img-top{
+        width: 100px;
+
+    }
+    footer{
+        height: 100px;
+        width: 100%;
+        background-color: #023e8a;
+    }
+    footer p{
+        color: white;
+        text-align: center;
+        padding-top: 40px;
+    }
+    .icons{
+        width: 30px;
+    }
+    .social-media{
+        width: 100%;
+        
+    }
+    .logoTaramasoandro{
+        height: 70px;
+        width: auto;
+    }
+    .wrapper-valeur{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1em;
+        align-items: center;
+        width:80%;
+    }
+    .smthng{
+        width: 300px;
+      }
+  }
+@media(min-width:701px){
+    .card-wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .card-img-top{
+        width: 150px;
+    }
+    footer{
+        height: 100px;
+        width: 100%;
+        background-color: #264653;
+    }
+    .icons{
+        width: 30px;
+    }
+    footer p{
+        color: white;
+        text-align: center;
+        padding-top: 40px;
+    }
+    .wrapper-valeur{
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+  .smthng{
+    width: 300px;
+  }
+}
+
+
+
+
+

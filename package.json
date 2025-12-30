@@ -1,0 +1,12 @@
+{
+  "name": "cooperative-taramasoandro",
+  "version": "1.0.0",
+  "description": "Site statique pour Cooperative Taramasoandro",
+  "scripts": {
+    "start": "echo 'No start script needed for static site'",
+    "build": "echo 'No build step needed for static site'"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  }
+}
