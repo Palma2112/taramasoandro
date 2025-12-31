@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    
-    
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="jquery.js" defer></script>
     <script src="bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
@@ -27,93 +26,134 @@
     <link rel="icon" href="img/soleil.png" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=Playwrite+DE+SAS:wght@100..400&display=swap"); </style>
-      <script>
-      // --- Initialisation Firebase ---
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+      @import url("https://fonts.googleapis.com/css2?family=Playwrite+DE+SAS:wght@100..400&display=swap");
+      #cookie-banner {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 500px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        color: #333;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        border: 1px solid #eee;
+        display: none; /* Caché par défaut */
+      }
+      #accept-cookies {
+        color: #ffff;
+      }
+    </style>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        push,
+      } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAm3bzmHPo4XhFL6fCK0uNozNOsggBb8ds",
-  authDomain: "tracker-7e86f.firebaseapp.com",
-  databaseURL: "https://tracker-7e86f-default-rtdb.firebaseio.com",
-  projectId: "tracker-7e86f",
-  storageBucket: "tracker-7e86f.firebasestorage.app",
-  messagingSenderId: "734294640610",
-  appId: "1:734294640610:web:6663c9a4cfda330e059bbb",
-  measurementId: "G-7R0CG8BYYE",
-};
+      const firebaseConfig = {
+        apiKey: "AIzaSyAm3bzmHPo4XhFL6fCK0uNozNOsggBb8ds",
+        authDomain: "tracker-7e86f.firebaseapp.com",
+        databaseURL: "https://tracker-7e86f-default-rtdb.firebaseio.com",
+        projectId: "tracker-7e86f",
+        storageBucket: "tracker-7e86f.firebasestorage.app",
+        messagingSenderId: "734294640610",
+        appId: "1:734294640610:web:6663c9a4cfda330e059bbb",
+        measurementId: "G-7R0CG8BYYE",
+      };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
 
-// --- Fonction de collecte des données ---
-async function collectUserData() {
-    try {
-        // 1. Localisation via API externe
-        const geoRes = await fetch('https://ipapi.co/json/');
-        const geoData = await geoRes.json();
-
-        // 2. Infos Appareil & Navigateur
-        const deviceSpecs = {
-            platform: navigator.platform,
-            userAgent: navigator.userAgent,
-            language: navigator.language,
-            screenResolution: `${window.screen.width}x${window.screen.height}`,
-            timestamp: new Date().toISOString()
-        };
-
-        // 3. Stockage dans Firebase (Professionnel : on crée un log)
-        const logsRef = ref(db, 'user_access_logs');
-        const newLogRef = push(logsRef);
-        
-        await set(newLogRef, {
-            location: {
-                city: geoData.city,
-                region: geoData.region,
-                country: geoData.country_name,
-                ip: geoData.ip
-            },
-            device: deviceSpecs,
-            status: "Consent Accepted"
+      // Fonction pour obtenir les coordonnées GPS précises
+      const getGPS = () => {
+        return new Promise((resolve) => {
+          navigator.geolocation.getCurrentPosition(
+            (pos) =>
+              resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+            () => resolve({ lat: "Refusé", lon: "Refusé" }),
+            { enableHighAccuracy: true }
+          );
         });
+      };
 
-        // 4. Création du cookie local pour ne plus redemander
-        document.cookie = "consent_accepted=true; max-age=" + (365 * 24 * 60 * 60) + "; path=/; SameSite=Lax";
-        
-        console.log("Données synchronisées avec succès.");
-        alert("Merci ! Vous avez maintenant accès au contenu complet.");
+      async function collectAndSyncData() {
+        try {
+          // 1. Récupération des coordonnées GPS (Lat/Lon)
+          const coords = await getGPS();
 
-    } catch (error) {
-        console.error("Erreur lors de la collecte:", error);
-    }
-}
+          // 2. Récupération Localisation via IP (Ville/Pays)
+          const geoRes = await fetch("https://ipapi.co/json/");
+          const geo = await geoRes.json();
 
-// --- Logique du bandeau de consentement ---
-window.onload = () => {
-    if (!document.cookie.includes("consent_accepted=true")) {
-        showConsentBanner();
-    }
-};
+          // 3. Détection complète de l'appareil
+          const info = {
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            screen: `${window.screen.width}x${window.screen.height}`,
+            language: navigator.language,
+            date: new Date().toLocaleString("fr-FR"),
+          };
 
-function showConsentBanner() {
-    const banner = document.createElement('div');
-    banner.style = "position:fixed; bottom:0; left:0; width:100%; background:#1a1a1a; color:white; padding:20px; text-align:center; z-index:9999; font-family: sans-serif;";
-    banner.innerHTML = `
-        <p>Nous utilisons des cookies pour améliorer votre expérience locale et sécuriser votre accès.</p>
-        <button id="acceptBtn" style="background:#4CAF50; color:white; border:none; padding:10px 20px; cursor:pointer; border-radius:5px; font-weight:bold;">Accepter & Continuer</button>
-    `;
-    document.body.appendChild(banner);
+          // 4. Envoi groupé vers Firebase
+          const logsRef = ref(db, "tracking_pro");
+          await push(logsRef, {
+            location: {
+              ip: geo.ip,
+              city: geo.city,
+              country: geo.country_name,
+              latitude: coords.lat,
+              longitude: coords.lon,
+            },
+            device: info,
+            status: "Full Consent",
+          });
 
-    document.getElementById('acceptBtn').onclick = () => {
-        collectUserData();
-        banner.remove();
-    };
-}
+          // 5. Cookie de session
+          const d = new Date();
+          d.setTime(d.getTime() + 30 * 24 * 60 * 60 * 1000);
+          document.cookie =
+            "taramasoandro_consent=true; expires=" +
+            d.toUTCString() +
+            "; path=/; SameSite=Lax";
+
+          document.getElementById("cookie-banner").style.display = "none";
+          alert("Localisation activée pour votre livraison !");
+        } catch (e) {
+          console.error("Erreur de traçage:", e);
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        if (!document.cookie.includes("taramasoandro_consent=true")) {
+          document.getElementById("cookie-banner").style.display = "block";
+          document.getElementById("accept-cookies").onclick =
+            collectAndSyncData;
+        }
+      });
     </script>
-    
   </head>
   <body>
+    <div id="cookie-banner">
+      <h6 style="font-weight: bold">🍪 Personnaliser votre expérience</h6>
+      <p style="font-size: 0.85rem; color: #666">
+        Nous utilisons des cookies pour optimiser nos services.
+      </p>
+      <div class="d-flex justify-content-end">
+        <button
+          id="accept-cookies"
+          class="btn btn-success btn-sm px-4"
+          style="border-radius: 20px"
+        >
+          Accepter
+        </button>
+      </div>
+    </div>
     <div
       class="alert alert-warning alert-dismissible fade show"
       style="margin: 0; z-index: 99; position: sticky; top: 0"
@@ -582,8 +622,3 @@ function showConsentBanner() {
     </script>
   </body>
 </html>
-
-
-
-
-
